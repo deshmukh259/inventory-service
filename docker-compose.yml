@@ -1,0 +1,22 @@
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"  # Adjust this to match your app's exposed port
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/project4  # Database connection URL, change "mydatabase" as needed
+    depends_on:
+      - postgres  # Ensures app starts after PostgreSQL
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: project4  # Name of the database to be created
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistent storage
+
+volumes:
+  postgres_data:
