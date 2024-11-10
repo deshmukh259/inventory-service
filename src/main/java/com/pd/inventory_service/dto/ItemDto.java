@@ -14,4 +14,5 @@ public class ItemDto {
     private int totalQty;
     private int soldQty;
     private String supplierDesc;
+    private int price;
 }

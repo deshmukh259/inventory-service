@@ -3,10 +3,7 @@ package com.pd.inventory_service;
 import com.pd.inventory_service.dto.ItemDto;
 import com.pd.inventory_service.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,9 +21,22 @@ public class ItemController {
 
     }
 
+    @GetMapping(value = "/api/items/{id}")
+    public ItemDto getItems(@PathVariable int id) {
+
+        return itemService.getItem(id);
+
+    }
+
     @PostMapping(value = "api/items")
-    public ItemDto addItem(@RequestBody ItemDto itemDto){
+    public ItemDto addItem(@RequestBody ItemDto itemDto) {
 
         return itemService.save(itemDto);
+    }
+
+    @PatchMapping(value = "api/items/sold")
+    public String soldItem(@RequestBody ItemDto itemDto) {
+
+        return itemService.soldItem(itemDto);
     }
 }

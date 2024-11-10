@@ -18,13 +18,13 @@ public class ItemDetails {
 
 
     @Id
-    @Column(name = "item_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long itemId;
+    private int id;
 
     private String itemName;
     private int totalQty;
     private int soldQty;
+    private int price;
     private String supplierDesc;
 
     @CreationTimestamp

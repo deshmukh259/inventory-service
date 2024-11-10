@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.*;
+
 @Service
 @Slf4j
 public class ItemServiceImpls implements ItemService {
@@ -35,12 +37,48 @@ public class ItemServiceImpls implements ItemService {
 
         ItemDetails itemDetails = modelMapper.map(itemDto, ItemDetails.class);
         itemDetails.setStatus(ItemStatus.ENABLED);
-        return modelMapper.map(itemRepository.save(itemDetails), ItemDto.class);
+        ItemDetails save = itemRepository.save(itemDetails);
+        return modelMapper.map(save, ItemDto.class);
+    }
+
+    @Override
+    public ItemDto getItem(int id) {
+        ItemDetails itemDetails = itemRepository.findById((long) id).orElseThrow(() -> new RuntimeException("item not present"));
+        return modelMapper.map(itemDetails, ItemDto.class);
+    }
+
+    @Override
+    public String soldItem(ItemDto itemDto) {
+
+        int soldQty = itemDto.getSoldQty();
+        if (soldQty <= 0) {
+            throw new RuntimeException("sold quantity should be greater than 0");
+        }
+
+        ItemDetails byId = itemRepository.findById(itemDto.getItemId())
+                .orElseThrow(() -> new RuntimeException("item not present"));
+
+        if (byId.getStatus().name().equals(ItemStatus.DISABLED.name()))
+            throw new RuntimeException("this item not available!!");
+
+        int soldQty1 = byId.getSoldQty();
+        int totalQty = byId.getTotalQty();
+        if (totalQty <= 0 || soldQty1 == totalQty)
+            throw new RuntimeException("item already sold!!");
+
+        if (totalQty < (soldQty1 + soldQty)) {
+            throw new RuntimeException("cant sold more than available item!!");
+        }
+        soldQty1 += soldQty;
+        byId.setSoldQty(soldQty1);
+
+        itemRepository.save(byId);
+        return "Item sold";
     }
 
     private List<ItemDto> convertToDtoList(List<ItemDetails> itemDetails) {
 
-        return itemDetails.stream().map(e -> modelMapper.map(e, ItemDto.class)).collect(Collectors.toList());
+        return itemDetails.stream().map(e -> modelMapper.map(e, ItemDto.class)).collect(toList());
 
     }
 }
