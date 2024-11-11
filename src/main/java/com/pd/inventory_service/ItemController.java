@@ -28,13 +28,13 @@ public class ItemController {
 
     }
 
-    @PostMapping(value = "api/items")
+    @PostMapping(value = "/api/items")
     public ItemDto addItem(@RequestBody ItemDto itemDto) {
 
         return itemService.save(itemDto);
     }
 
-    @PatchMapping(value = "api/items/sold")
+    @PatchMapping(value = "/api/items/sold")
     public String soldItem(@RequestBody ItemDto itemDto) {
 
         return itemService.soldItem(itemDto);

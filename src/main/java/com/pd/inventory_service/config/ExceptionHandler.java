@@ -1,4 +1,4 @@
-package com.pd.inventory_service;
+package com.pd.inventory_service.config;
 
 
 import org.springframework.http.HttpStatus;
