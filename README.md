@@ -19,3 +19,10 @@ docker run -d --name elasticsearch  -p 9200:9200 -p 9300:9300 -e "discovery.type
 
 
 docker run  --network="host"  inventory-service
+
+
+postgres=# CREATE DATABASE shipment;
+CREATE DATABASE
+postgres=# CREATE DATABASE inventory;
+CREATE DATABASE
+postgres=# 
