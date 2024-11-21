@@ -10,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
 
 @Service
 @Slf4j
@@ -74,6 +73,22 @@ public class ItemServiceImpls implements ItemService {
 
         itemRepository.save(byId);
         return "Item sold";
+    }
+
+    @Override
+    public List<ItemDto> getAvailableItems() {
+        return convertToDtoList(itemRepository.getAvailableItems());
+    }
+
+    @Override
+    public ItemDto getAvailableItem(Long itemId) {
+        return modelMapper.map(itemRepository.getAvailableItem(itemId), ItemDto.class);
+    }
+
+    @Override
+    public ItemDto getAvailableItem(String item) {
+
+        return modelMapper.map(itemRepository.getAvailableItemByName(item), ItemDto.class);
     }
 
     private List<ItemDto> convertToDtoList(List<ItemDetails> itemDetails) {

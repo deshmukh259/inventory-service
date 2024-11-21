@@ -15,4 +15,10 @@ public interface ItemService {
     ItemDto getItem(int id);
 
     String soldItem(ItemDto itemDto);
+
+    List<ItemDto> getAvailableItems();
+
+    ItemDto getAvailableItem(Long itemId);
+
+    ItemDto getAvailableItem(String item);
 }
