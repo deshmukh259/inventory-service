@@ -82,7 +82,11 @@ public class ItemServiceImpls implements ItemService {
 
     @Override
     public ItemDto getAvailableItem(Long itemId) {
-        return modelMapper.map(itemRepository.getAvailableItem(itemId), ItemDto.class);
+        ItemDetails availableItem = itemRepository.getAvailableItem(itemId);
+        if (null == availableItem) {
+            throw new RuntimeException("Item not found");
+        }
+        return modelMapper.map(availableItem, ItemDto.class);
     }
 
     @Override

@@ -14,21 +14,18 @@ supplier_desc
 start docker
 docker run -p 5432:5432 --name postgres  -e POSTGRES_PASSWORD=postgres -d postgres
 
-docker exec -it a76928860ae3 psql -U postgres 
+docker exec -it 103929fe07b5 psql -U postgres
 
 docker run -d --name elasticsearch  -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch
 
 
 docker run  --network="host"  inventory-service
 
+CREATE DATABASE shipment;
 
-postgres=# CREATE DATABASE shipment;
-CREATE DATABASE
-postgres=# CREATE DATABASE inventory;
-CREATE DATABASE
-postgres=# 
+CREATE DATABASE inventory;
 
-create database orders;
+CREATE DATABASE orders;
 
 # kafka
 

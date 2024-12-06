@@ -48,10 +48,11 @@ public class ItemController {
 
     @GetMapping(value = "/api/available-items/{itemId}")
     public ItemDto getAvailableItem(@PathVariable Long itemId) {
+        System.out.println(itemId);
         return itemService.getAvailableItem(itemId);
     }
 
-    @GetMapping(value = "/api/available-items/{item}")
+    @GetMapping(value = "/api/available-items/name/{item}")
     public ItemDto getAvailableItem(@PathVariable String item) {
         return itemService.getAvailableItem(item);
     }
