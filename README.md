@@ -1,6 +1,6 @@
 inventory-service
 
-
+![img.png](img.png)
 DB,
 
 item_details
